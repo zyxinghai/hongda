@@ -7,8 +7,12 @@ using System.Threading.Tasks;
 
 namespace hongda.Middlewares
 {
-    public class HttpContext
+    /// <summary>
+    /// 
+    /// </summary>
+    public class HttpSession
     {
+
         /// <summary>
         /// 设置Session
         /// </summary>

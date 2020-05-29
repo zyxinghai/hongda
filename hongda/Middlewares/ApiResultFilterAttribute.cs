@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace hongda.Middlewares
 {
+    /// <summary>
+    /// 拦截
+    /// </summary>
     public class ApiResultFilterAttribute : ActionFilterAttribute
     {
         /// <summary>
@@ -34,7 +37,7 @@ namespace hongda.Middlewares
                     UserBaseInfo ubi = new UserBaseInfo();
                     ubi.UserId = Guid.NewGuid();
 
-                    HttpContext.SetSession("UserBaseInfo", JsonConvert.SerializeObject(ubi));
+                    HttpSession.SetSession("UserBaseInfo", JsonConvert.SerializeObject(ubi));
                     //缓存
                     /*if (requestUrl == "/api/ConfigParameter/ALL")
                     {
