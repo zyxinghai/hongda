@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 using System.Threading.Tasks;
 using hongda.Middlewares;
 using IdentityServer4;
@@ -145,7 +147,14 @@ namespace hongda
              };*/
             #endregion
 
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(config =>
+            {
+                //此设定解决JsonResult中文被编码的问题
+                config.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
+                //时间问题
+                config.JsonSerializerOptions.Converters.Add(new DateTimeConverter());
+                //config.JsonSerializerOptions.Converters.Add(new DateTimeNullableConvert());
+            }); ;
             services.AddAuthentication("Bearer").AddJwtBearer("Bearer", options =>
             {
                 options.Authority = "http://localhost:10112";

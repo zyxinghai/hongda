@@ -1,4 +1,7 @@
-﻿using IdentityModel;
+﻿using hongda.Entity;
+using hongda.ResultEntities;
+using hongda.Services;
+using IdentityModel;
 using IdentityServer4.Models;
 using IdentityServer4.Validation;
 using System;
@@ -20,7 +23,13 @@ namespace hongda.Middlewares
         /// <returns></returns>
         public Task ValidateAsync(ResourceOwnerPasswordValidationContext context)
         {
-            if (context.UserName == "Aju" && context.Password == "Aju_password")
+            User_Login ul = new User_Login();
+            ul.Login_Name = context.UserName;
+            ul.Login_PassWord = context.Password;
+            ul.Login_Ip = "";
+            Dm_ResultDefault dm= User_LoginBLO.Logins(ul);
+            //if (context.UserName == "Aju" && context.Password == "Aju_password")
+            if (dm.Result==1)
             {
                 context.Result = new GrantValidationResult(
                     subject: context.UserName,
